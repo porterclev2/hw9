@@ -50,4 +50,26 @@ public class FlyweightTest {
     public void testPropertiesToString() {
         assertEquals("Calibri, Blue, 14", factory.getProperties("Calibri", "Blue", 14).toString());
     }
+
+    @Test
+    public void testDocumentCharacterGetters() {
+        DocumentCharacter character = new DocumentCharacter('H', factory.getProperties("Arial", "Red", 12));
+        assertEquals('H', character.getValue());
+        assertSame(factory.getProperties("Arial", "Red", 12), character.getProperties());
+    }
+
+    @Test
+    public void testDocumentCharacterSetters() {
+        DocumentCharacter character = new DocumentCharacter('W', factory.getProperties("Calibri", "Blue", 14));
+        character.setValue('C');
+        character.setProperties(factory.getProperties("Arial", "Red", 12));
+        assertEquals('C', character.getValue());
+        assertSame(factory.getProperties("Arial", "Red", 12), character.getProperties());
+    }
+
+    @Test
+    public void testDocumentCharacterToString() {
+        assertEquals("'H' [Arial, Red, 12]", new DocumentCharacter('H', factory.getProperties("Arial", "Red", 12)).toString());
+        assertEquals("'5' [Arial, Blue, 16]", new DocumentCharacter('5', factory.getProperties("Arial", "Blue", 16)).toString());
+    }
 }
